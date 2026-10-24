@@ -19,15 +19,17 @@ Az oldal a `http://localhost:4321` címen, az admin felület a `http://localhost
 
 Az admin felület használatához telepített oldal és működő OAuth szolgáltatás szükséges.
 
-## Netlify automatikus telepítés
+## Automatikus build és telepítés GitHub Actions segítségével
 
-A `netlify.toml` beállítja az Astro statikus buildjét (`npm run build`, `dist`). Importáld a GitHubon lévő `HexonDev/decapcms-storage` repót a Netlify-ba. Ezután a Netlify minden `main` ágra érkező commit — így a Decap CMS árlista-mentése — után automatikusan újraépíti és közzéteszi a statikus oldalt. Nincs saját alkalmazás-backend vagy futásidejű GitHub-token; az Astro build a repóban lévő JSON-ot olvassa be.
+A `.github/workflows/deploy.yml` workflow minden `main` ágra érkező commitnál — így a Decap CMS árlista-mentése után is — telepíti a függőségeket, lefuttatja az Astro buildet, majd publikálja a `dist` mappát GitHub Pages-re. Az oldal címe: `https://hexondev.github.io/decapcms-storage/`. Az oldalon nem fut Node.js; a Node.js csak a GitHub Actions build környezetében kell.
 
-1. A Netlify-ban válaszd az **Add new site → Import an existing project** lehetőséget, csatlakoztasd a GitHubot, majd importáld a `HexonDev/decapcms-storage` repót. A build parancs `npm run build`, a publikálási mappa `dist`.
-2. A CMS GitHub belépéséhez OAuth provider kell. A Netlify OAuth providerében telepíts GitHub providert. A GitHub OAuth App Homepage URL-je a Netlify oldal címe, az Authorization callback URL pedig `https://api.netlify.com/auth/done`. A Client ID és Client secret értékeket a Netlify OAuth beállításainál add meg.
-3. Ezután a `/admin/` felületen ments egy módosítást. A commit a GitHub `main` ágára kerül, a Netlify automatikus deployja pedig frissíti a publikus oldalt.
+Az első telepítéshez:
 
-Helyben a `npm run dev` a helyi `src/data/arlista.json` fájlt mutatja. Ha a CMS-ből mentett legújabb verziót helyben is meg akarod nézni, egyszer húzd le a változást: `git pull origin main`. A látogatóknak erre nincs szükségük, mert a Netlify végzi az automatikus deployt.
+1. A repó **Settings → Pages** oldalán a **Build and deployment → Source** értékét állítsd **GitHub Actions**-re.
+2. Ellenőrizd a repó láthatóságát: GitHub Free fióknál a Pages csak nyilvános repóból használható. Privát repóból való publikáláshoz GitHub Pro szükséges; maga a publikált Pages oldal ettől függetlenül nyilvánosan elérhető.
+3. Pusholj a `main` ágra, vagy indítsd el a workflow-t a GitHub **Actions** fülén a **Run workflow** gombbal.
+
+Ezután a Decap CMS GitHubra mentett módosításai automatikusan elindítják az új buildet és telepítést. Helyben a `npm run dev` a helyi `src/data/arlista.json` fájlt olvassa; a CMS-ben mentett legújabb verzió helyi megtekintéséhez futtasd a `git pull origin main` parancsot. A látogatóknak ezt nem kell megtenniük.
 
 ## Árlista szerkesztése
 

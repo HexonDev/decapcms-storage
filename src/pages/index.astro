@@ -73,7 +73,7 @@ const totalItems = priceList.categories.reduce((sum, category) => sum + category
     </section>
   </main>
 
-  <footer><a class="footer-brand" href="#top">A<span>.</span></a><span>© 2026 · MINDEN JOG FENNTARTVA</span><a href="/admin/">CMS belépés</a></footer>
+  <footer><a class="footer-brand" href="#top">A<span>.</span></a><span>© 2026 · MINDEN JOG FENNTARTVA</span><a href={`${import.meta.env.BASE_URL}admin/`}>CMS belépés</a></footer>
 </BaseLayout>
 
 <style>

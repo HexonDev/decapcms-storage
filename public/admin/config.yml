@@ -4,7 +4,7 @@ backend:
   branch: main
 
 media_folder: public/uploads
-public_folder: /uploads
+public_folder: /decapcms-storage/uploads
 locale: hu
 show_preview_links: false
 
