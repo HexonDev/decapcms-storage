@@ -20,19 +20,6 @@ collections:
           - { label: Bevezető főcím, name: title, widget: string }
           - { label: Bevezető szöveg, name: intro, widget: text }
           - { label: Megjegyzés az árakhoz, name: note, widget: text }
-          - label: Képek galéria
-            name: gallery
-            widget: list
-            required: false
-            summary: '{{fields.name}}'
-            fields:
-              - { label: Kép címe, name: name, widget: string }
-              - label: Kép (Cloudflare R2)
-                name: image
-                widget: r2-image
-                config:
-                  upload_url: https://arlista-r2-uploader.stancz-mate.workers.dev/api/upload
-                  max_file_size: 5242880
           - label: Kategóriák
             name: categories
             widget: list
@@ -57,3 +44,26 @@ collections:
                   - { label: Ár (Ft), name: price, widget: number, value_type: int, min: 0 }
                   - { label: Egység, name: unit, widget: string, default: alkalom }
                   - { label: Kiemelt tétel, name: featured, widget: boolean, default: false }
+  - name: galeria
+    label: Galéria
+    files:
+      - name: galeria
+        label: Galéria képei
+        file: src/data/galeria.json
+        format: json
+        fields:
+          - label: Képek
+            name: images
+            widget: list
+            required: false
+            summary: '{{fields.name}}'
+            fields:
+              - { label: Kép címe, name: name, widget: string }
+              - { label: Leírás, name: description, widget: string, required: false }
+              - label: Kép feltöltése R2-be
+                name: image
+                widget: r2-image
+                required: true
+                config:
+                  upload_url: https://arlista-r2-uploader.stancz-mate.workers.dev/api/upload
+                  max_file_size: 5242880

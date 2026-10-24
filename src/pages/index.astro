@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import priceList from '../data/arlista.json';
+import gallery from '../data/galeria.json';
 const formatPrice = (price) => new Intl.NumberFormat('hu-HU').format(price);
 const totalItems = priceList.categories.reduce((sum, category) => sum + category.items.length, 0);
-const r2GalleryImages = (priceList.gallery || [])
+const r2GalleryImages = (gallery.images || [])
   .filter((item) => item.image)
   .map((item) => ({ ...item, category: 'Galéria' }));
 const itemImages = priceList.categories.flatMap((category) =>
