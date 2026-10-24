@@ -33,7 +33,7 @@ Ezután a Decap CMS GitHubra mentett módosításai automatikusan elindítják a
 
 ## Képfeltöltés Cloudflare R2-be
 
-A Decap CMS egyedi `r2-image` mezője az árlista egyes tételeihez ad képfeltöltést. A képfájl az R2-ben marad, az URL-je pedig az árlista JSON-ba kerül, így a GitHub Actions az árlista mentése után a képet is megjeleníti a weboldalon. A bucket nem nyilvános; a Worker csak a képek GET lekérését teszi nyilvánossá, feltölteni pedig titkos jelszóval lehet. A jelszó nincs a CMS kódjába írva.
+A Decap CMS egyedi `r2-image` mezője az árlista egyes tételeihez ad képfeltöltést. A képfájl az R2-ben marad, az URL-je pedig az árlista JSON-ba kerül; a weboldal az összes ilyen képet külön **Képek** galéria szekcióban jeleníti meg. A szekció csak akkor látszik, ha legalább egy árlista tételhez tartozik kép. A bucket nem nyilvános; a Worker csak a képek GET lekérését teszi nyilvánossá, feltölteni pedig titkos jelszóval lehet. A jelszó nincs a CMS kódjába írva.
 
 Első beállítás:
 
