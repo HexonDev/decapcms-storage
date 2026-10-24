@@ -1,0 +1,32 @@
+{
+  "title": "Átlátható árak, figyelmes szolgáltatás.",
+  "intro": "Válaszd ki a számodra megfelelő alkalmat. Minden ár forintban értendő, és tartalmazza a szolgáltatás teljes díját.",
+  "note": "Az árak tájékoztató jellegűek. A pontos részletekről időpontfoglaláskor egyeztetünk.",
+  "categories": [
+    {
+      "name": "Konzultáció",
+      "description": "Személyre szabott figyelem, nyugodt tempóban.",
+      "items": [
+        { "name": "Első alkalom", "description": "Ismerkedés, igényfelmérés és személyre szabott javaslat.", "price": 12000, "unit": "alkalom", "featured": true },
+        { "name": "Kontroll alkalom", "description": "Rövid áttekintés és a következő lépések megbeszélése.", "price": 8000, "unit": "alkalom", "featured": false }
+      ]
+    },
+    {
+      "name": "Egyéni szolgáltatások",
+      "description": "Rugalmasan választható, önálló alkalmak.",
+      "items": [
+        { "name": "Alap szolgáltatás", "description": "Teljes, személyre szabott szolgáltatás egy alkalomra.", "price": 18000, "unit": "alkalom", "featured": true },
+        { "name": "Hosszabb alkalom", "description": "Több időt igénylő, részletesebb szolgáltatás.", "price": 26000, "unit": "alkalom", "featured": false },
+        { "name": "Kiegészítő szolgáltatás", "description": "Az alap alkalom mellé választható kiegészítés.", "price": 5000, "unit": "alkalom", "featured": false }
+      ]
+    },
+    {
+      "name": "Csomagok",
+      "description": "Több alkalom kedvezőbb csomagárban.",
+      "items": [
+        { "name": "3 alkalmas csomag", "description": "Három szabadon egyeztethető alkalom.", "price": 48000, "unit": "csomag", "featured": true },
+        { "name": "5 alkalmas csomag", "description": "Öt alkalom, a saját időbeosztásodhoz igazítva.", "price": 75000, "unit": "csomag", "featured": false }
+      ]
+    }
+  ]
+}

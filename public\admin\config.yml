@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: HexonDev/decapcms-storage
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+locale: hu
+show_preview_links: false
+
+collections:
+  - name: arlista
+    label: Árlista
+    files:
+      - name: arlista
+        label: Árlista és kategóriák
+        file: src/data/arlista.json
+        format: json
+        fields:
+          - { label: Bevezető főcím, name: title, widget: string }
+          - { label: Bevezető szöveg, name: intro, widget: text }
+          - { label: Megjegyzés az árakhoz, name: note, widget: text }
+          - label: Kategóriák
+            name: categories
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { label: Kategória neve, name: name, widget: string }
+              - { label: Rövid leírás, name: description, widget: string }
+              - label: Tételek
+                name: items
+                widget: list
+                summary: '{{fields.name}} — {{fields.price}} Ft'
+                fields:
+                  - { label: Megnevezés, name: name, widget: string }
+                  - { label: Leírás, name: description, widget: string }
+                  - { label: Ár (Ft), name: price, widget: number, value_type: int, min: 0 }
+                  - { label: Egység, name: unit, widget: string, default: alkalom }
+                  - { label: Kiemelt tétel, name: featured, widget: boolean, default: false }

@@ -1,0 +1,28 @@
+---
+const { title = 'Árlista', description = 'Szolgáltatások és árak, egyszerűen áttekinthető formában.' } = Astro.props;
+---
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f4ee" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root { font-family: 'DM Sans', sans-serif; color: #202b28; background: #f6f4ee; font-synthesis: none; text-rendering: optimizeLegibility; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-width: 320px; }
+  a { color: inherit; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  ::selection { color: #fff; background: #527465; }
+</style>
