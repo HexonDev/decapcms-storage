@@ -20,6 +20,19 @@ collections:
           - { label: Bevezető főcím, name: title, widget: string }
           - { label: Bevezető szöveg, name: intro, widget: text }
           - { label: Megjegyzés az árakhoz, name: note, widget: text }
+          - label: Képek galéria
+            name: gallery
+            widget: list
+            required: false
+            summary: '{{fields.name}}'
+            fields:
+              - { label: Kép címe, name: name, widget: string }
+              - label: Kép (Cloudflare R2)
+                name: image
+                widget: r2-image
+                config:
+                  upload_url: https://arlista-r2-uploader.stancz-mate.workers.dev/api/upload
+                  max_file_size: 5242880
           - label: Kategóriák
             name: categories
             widget: list

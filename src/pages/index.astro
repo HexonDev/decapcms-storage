@@ -1,13 +1,28 @@
 ---
+import { existsSync, readdirSync } from 'node:fs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import priceList from '../data/arlista.json';
 const formatPrice = (price) => new Intl.NumberFormat('hu-HU').format(price);
 const totalItems = priceList.categories.reduce((sum, category) => sum + category.items.length, 0);
-const galleryItems = priceList.categories.flatMap((category) =>
+const uploadedImages = existsSync('public/uploads')
+  ? readdirSync('public/uploads', { withFileTypes: true })
+      .filter((entry) => entry.isFile() && /\.(avif|gif|jpe?g|png|webp)$/i.test(entry.name))
+      .map((entry) => ({
+        image: `${import.meta.env.BASE_URL}uploads/${encodeURIComponent(entry.name)}`,
+        name: entry.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
+        category: 'Feltöltött kép',
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'hu'))
+  : [];
+const r2GalleryImages = (priceList.gallery || [])
+  .filter((item) => item.image)
+  .map((item) => ({ ...item, category: 'Galéria' }));
+const itemImages = priceList.categories.flatMap((category) =>
   category.items
     .filter((item) => item.image)
     .map((item) => ({ ...item, category: category.name }))
 );
+const galleryItems = [...uploadedImages, ...r2GalleryImages, ...itemImages];
 ---
 <BaseLayout title="Árlista — szolgáltatások és árak">
   <header class="topbar">
