@@ -1,3 +1,9 @@
 {
-  "images": []
+  "images": [
+    {
+      "image": "https://arlista-r2-uploader.stancz-mate.workers.dev/images/61d2be05-6333-428c-98e4-4c4d927a1cc5.png",
+      "name": "szénsavas lipton",
+      "description": "szénsavas lipton"
+    }
+  ]
 }
