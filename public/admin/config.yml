@@ -34,6 +34,13 @@ collections:
                 fields:
                   - { label: Megnevezés, name: name, widget: string }
                   - { label: Leírás, name: description, widget: string }
+                  - label: Kép (Cloudflare R2)
+                    name: image
+                    widget: r2-image
+                    required: false
+                    config:
+                      upload_url: https://arlista-r2-uploader.stancz-mate.workers.dev/api/upload
+                      max_file_size: 5242880
                   - { label: Ár (Ft), name: price, widget: number, value_type: int, min: 0 }
                   - { label: Egység, name: unit, widget: string, default: alkalom }
                   - { label: Kiemelt tétel, name: featured, widget: boolean, default: false }

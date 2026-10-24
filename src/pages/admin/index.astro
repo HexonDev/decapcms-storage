@@ -9,6 +9,7 @@ export const prerender = true;
     <title>Árlista CMS</title>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script is:inline src={`${import.meta.env.BASE_URL}admin/r2-image-widget.js`}></script>
   </body>
 </html>

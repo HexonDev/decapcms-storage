@@ -1,0 +1,11 @@
+name = "arlista-r2-uploader"
+main = "src/index.js"
+compatibility_date = "2026-10-24"
+workers_dev = true
+
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "decapstorage"
+
+[vars]
+ALLOWED_ORIGINS = "https://hexondev.github.io,http://localhost:4321"

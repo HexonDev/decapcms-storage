@@ -31,6 +31,27 @@ Az első telepítéshez:
 
 Ezután a Decap CMS GitHubra mentett módosításai automatikusan elindítják az új buildet és telepítést. Helyben a `npm run dev` a helyi `src/data/arlista.json` fájlt olvassa; a CMS-ben mentett legújabb verzió helyi megtekintéséhez futtasd a `git pull origin main` parancsot. A látogatóknak ezt nem kell megtenniük.
 
+## Képfeltöltés Cloudflare R2-be
+
+A Decap CMS egyedi `r2-image` mezője az árlista egyes tételeihez ad képfeltöltést. A képfájl az R2-ben marad, az URL-je pedig az árlista JSON-ba kerül, így a GitHub Actions az árlista mentése után a képet is megjeleníti a weboldalon. A bucket nem nyilvános; a Worker csak a képek GET lekérését teszi nyilvánossá, feltölteni pedig titkos jelszóval lehet. A jelszó nincs a CMS kódjába írva.
+
+Első beállítás:
+
+1. A Cloudflare irányítópulton hozz létre egy R2 bucketet. A projekt jelenlegi konfigurációja a `decapstorage` nevet használja.
+2. Nyiss terminált a projekt `r2-uploader` mappájában, majd futtasd:
+
+   ```sh
+   npx wrangler login
+   npx wrangler deploy
+   npx wrangler secret put UPLOAD_TOKEN
+   ```
+
+   A titok bekérésekor adj meg egy hosszú, véletlenszerű jelszót, és tartsd meg jelszókezelőben. Ezt kell majd beírni a CMS képmezőjébe. Ne tedd Gitbe.
+3. A `public/admin/config.yml` már a `https://arlista-r2-uploader.stancz-mate.workers.dev/api/upload` címet használja. Ha később új Worker-címet kapsz, ezt az `upload_url` értéket frissítsd.
+4. Nyisd meg a CMS-t, egy árlista tételének **Kép (Cloudflare R2)** mezőjében írd be a feltöltési jelszót és válassz JPEG, PNG, GIF vagy WebP képet. A feltöltött kép URL-je bekerül a mezőbe; ezután a CMS-ben külön mentsd el az árlistát is.
+
+A feltöltés maximum 5 MB-os képeket fogad, és csak a GitHub Pages webhelyről vagy helyi `localhost:4321` fejlesztői címről engedélyezett. A jelszót a CMS csak az aktuális böngészőfül session tárában jegyzi meg. A CMS-ből a kép hivatkozásának törlése nem törli a fájlt az R2-ből.
+
 ## Árlista szerkesztése
 
 Az admin felület az oldal bevezető szövegét, ár megjegyzését, kategóriáit és tételeit szerkeszti. Az induló adatok minták, ezeket a tényleges szolgáltatásokra és árakra kell átírni. A kapcsolat gombok címe az `src/pages/index.astro` fájlban módosítható.
