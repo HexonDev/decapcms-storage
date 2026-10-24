@@ -1,5 +1,9 @@
 (function () {
-  const h = CMS.h;
+  const { CMS, createClass, h } = window;
+  if (!CMS || !createClass || !h) {
+    console.error('Az R2 képmező nem tudott elindulni: a Decap CMS egyedi widget API-ja nem érhető el.');
+    return;
+  }
 
   function fieldConfig(field) {
     const config = field && field.get && field.get('config');
@@ -12,7 +16,7 @@
 
   CMS.registerWidget(
     'r2-image',
-    CMS.createClass({
+    createClass({
       getInitialState() {
         const uploadUrl = fieldConfig(this.props.field).upload_url || '';
         let token = '';
