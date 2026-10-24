@@ -19,16 +19,15 @@ Az oldal a `http://localhost:4321` címen, az admin felület a `http://localhost
 
 Az admin felület használatához telepített oldal és működő OAuth szolgáltatás szükséges.
 
-## Netlify telepítés és élő Git-adat
+## Netlify automatikus telepítés
 
-A `netlify.toml` beállítja az Astro buildet (`npm run build`, `dist`) és kihagyja az új buildet, ha egy commit csak az `src/data/arlista.json` fájlt módosítja. A publikus oldal az `/api/arlista` Netlify Functionön keresztül kéri le a JSON-t a privát GitHub-repóból, ezért az árlista változása nem igényel új buildet. A nyitva hagyott oldalon percenként frissül az adat.
+A `netlify.toml` beállítja az Astro statikus buildjét (`npm run build`, `dist`). Importáld a GitHubon lévő `HexonDev/decapcms-storage` repót a Netlify-ba. Ezután a Netlify minden `main` ágra érkező commit — így a Decap CMS árlista-mentése — után automatikusan újraépíti és közzéteszi a statikus oldalt. Nincs saját alkalmazás-backend vagy futásidejű GitHub-token; az Astro build a repóban lévő JSON-ot olvassa be.
 
-1. A Netlify-ban válaszd az **Add new site → Import an existing project** lehetőséget, csatlakoztasd a GitHubot, majd importáld a `HexonDev/decapcms-storage` repót.
-2. Hozz létre egy GitHub fine-grained tokent kizárólag ehhez a repóhoz, `Contents: read-only` jogosultsággal. A token értékét a Netlify site environment variables beállításában add meg `GITHUB_READ_TOKEN` néven. Ne tedd be a repóba vagy a böngésző kódjába.
-3. A CMS GitHub belépéséhez külön OAuth provider kell. A Netlify OAuth providerében telepítsd a GitHub providert. A GitHub OAuth App Homepage URL-je a Netlify oldal címe, az Authorization callback URL pedig `https://api.netlify.com/auth/done`. A Client ID és Client secret értékeket a Netlify OAuth beállításainál add meg.
-4. Az első telepítés és a token beállítása után a `/admin/` CMS-ben mentett JSON változás nem indít új buildet; az oldal a GitHub `main` ágáról friss adatot kap.
+1. A Netlify-ban válaszd az **Add new site → Import an existing project** lehetőséget, csatlakoztasd a GitHubot, majd importáld a `HexonDev/decapcms-storage` repót. A build parancs `npm run build`, a publikálási mappa `dist`.
+2. A CMS GitHub belépéséhez OAuth provider kell. A Netlify OAuth providerében telepíts GitHub providert. A GitHub OAuth App Homepage URL-je a Netlify oldal címe, az Authorization callback URL pedig `https://api.netlify.com/auth/done`. A Client ID és Client secret értékeket a Netlify OAuth beállításainál add meg.
+3. Ezután a `/admin/` felületen ments egy módosítást. A commit a GitHub `main` ágára kerül, a Netlify automatikus deployja pedig frissíti a publikus oldalt.
 
-Helyi, élő Git-adatot használó teszthez állítsd be a `GITHUB_READ_TOKEN` környezeti változót a terminálban, majd indítsd el az Astro oldalt és a Netlify Functions fejlesztői kiszolgálót a Netlify CLI-vel (`npx netlify dev`). A sima `npm run dev` csak helyi JSON előnézetet szolgál ki.
+Helyben a `npm run dev` a helyi `src/data/arlista.json` fájlt mutatja. Ha a CMS-ből mentett legújabb verziót helyben is meg akarod nézni, egyszer húzd le a változást: `git pull origin main`. A látogatóknak erre nincs szükségük, mert a Netlify végzi az automatikus deployt.
 
 ## Árlista szerkesztése
 
