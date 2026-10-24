@@ -33,7 +33,7 @@ Ezután a Decap CMS GitHubra mentett módosításai automatikusan elindítják a
 
 ## Képfeltöltés Cloudflare R2-be
 
-A Decap CMS **Média** fülén feltöltött képek a Git repó `public/uploads` mappájába kerülnek, és a GitHub Actions következő buildje után automatikusan megjelennek a külön **Képek** galéria szekcióban. Külön galériaképet az **Árlista → Képek galéria** listában adhatsz hozzá; itt a `r2-image` mező az R2-be tölti a képet. Az árlista egyes tételeinél lévő `r2-image` mezővel feltöltött fájlok szintén megjelennek a galériában. A bucket nem nyilvános; a Worker csak a képek GET lekérését teszi nyilvánossá, feltölteni pedig titkos jelszóval lehet. A jelszó nincs a CMS kódjába írva.
+A képeket kizárólag az **Árlista → Képek galéria** listán vagy az árlista tételeinek `Kép (Cloudflare R2)` mezőjén keresztül töltsd fel. Ezek a mezők a képeket közvetlenül az R2-be teszik, az URL pedig a JSON-ba kerül. A CMS Git-alapú Média füle rejtve van, mert az oda feltöltött fájlokat a Decap a repóba menti. A bucket nem nyilvános; a Worker csak a képek GET lekérését teszi nyilvánossá, feltölteni pedig titkos jelszóval lehet. A jelszó nincs a CMS kódjába írva.
 
 Első beállítás:
 

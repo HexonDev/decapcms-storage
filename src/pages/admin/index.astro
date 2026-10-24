@@ -11,5 +11,15 @@ export const prerender = true;
   <body>
     <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script is:inline src={`${import.meta.env.BASE_URL}admin/r2-image-widget.js`}></script>
+    <script is:inline>
+      const hideGitMediaTab = () => {
+        document.querySelectorAll('a, button, [role="tab"], [role="menuitem"]').forEach((element) => {
+          if ((element.textContent || '').replace(/\s+/g, ' ').trim().toLocaleLowerCase('hu') !== 'média') return;
+          (element.closest('li') || element).style.display = 'none';
+        });
+      };
+      new MutationObserver(hideGitMediaTab).observe(document.documentElement, { childList: true, subtree: true });
+      hideGitMediaTab();
+    </script>
   </body>
 </html>
